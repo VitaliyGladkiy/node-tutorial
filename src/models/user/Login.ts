@@ -1,7 +1,7 @@
 import {Resolver, Mutation, Arg, Ctx} from "type-graphql";
 import * as bcrypt from "bcryptjs";
 import { User } from "../../entity/User";
-import { AppContext} from "../../types/AppContext";
+import {AppContext} from "../../types/AppContext";
 
 @Resolver()
 export class LoginResolver {
@@ -23,8 +23,12 @@ export class LoginResolver {
             if(!valid){
                 return null;
             }
-            console.log("password valid");
+
+            if(!user.confirmed){
+                return null;
+            }
             ctx.req.session!.userId = user.id;
+            console.log(`session: ${ctx.req.session!.userId}`);
             return user;
     }
 }

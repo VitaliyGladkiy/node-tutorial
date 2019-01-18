@@ -10,10 +10,21 @@ import  * as connectRedis from "connect-redis";
 import { redis } from "./redis";
 import * as cors from "cors";
 import { LoginResolver } from "./models/user/Login";
+import {ConfirmUserResolver} from "./models/user/register/ConfirmUser";
+import {ForgotPasswordResolver} from "./utils/ForgotPassword";
+import {ChangePasswordResolver} from "./utils/changePassword";
+import {LogoutResolver} from "./models/user/Logout";
 const RedisStore = connectRedis(session);
 const main = async () => {
     const schema = await buildSchema({
-        resolvers: [RegisterResolver, LoginResolver],
+        resolvers: [
+            LoginResolver,
+            RegisterResolver,
+            ConfirmUserResolver,
+            ChangePasswordResolver,
+            ForgotPasswordResolver,
+            LogoutResolver
+        ],
         authChecker:({ context: {req}}) => {
                 return !!req.session.userId;
         }
@@ -31,6 +42,7 @@ const main = async () => {
             origin: "http://loclhost:3000"
         })
     );
+
     app.use(
         session({
         store: new RedisStore({
@@ -47,6 +59,7 @@ const main = async () => {
         }
     })
     );
+
     apolloServer.applyMiddleware({app});
     app.listen(4000, () => {
         console.log('server stasrt on localhost:4000');

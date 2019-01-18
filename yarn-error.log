@@ -1,30 +1,30 @@
 Arguments: 
-  /home/vitaliy/.nvm/versions/node/v9.0.0/bin/node /usr/share/yarn/bin/yarn.js add -D @types/0express-session @types/connect-redis @types/ioredis @types/cors
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.13.0/libexec/bin/yarn.js add nodeemailer uuid
 
 PATH: 
-  /home/vitaliy/.nvm/versions/node/v9.0.0/bin:/opt/gradle/gradle-4.10.2//bin:/home/vitaliy/.cargo/bin:/home/vitaliy/.npm-global/bin:/home/vitaliy/.sdkman/candidates/groovy/current/bin:/home/vitaliy/.sdkman/candidates/gradle/current/bin:/opt/gradle/gradle-4.10.2//bin:/home/vitaliy/.cargo/bin:/home/vitaliy/.npm-global/bin:/opt/gradle/gradle-4.10.2//bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/tools:/platform-tools:/usr/local/sdk//tools:/usr/local/sdk//platform-tools:/usr/local/sdk//tools:/usr/local/sdk//platform-tools:/usr/local/sdk//tools/lib/x86_64:/usr/local/sdk//tools:/usr/local/sdk//platform-tools:/usr/local/sdk//tools:/usr/local/sdk//platform-tools:/usr/local/sdk//tools:/usr/local/sdk//platform-tools:/usr/local/sdk//tools/lib/x86_64:/usr/local/sdk//tools:/usr/local/sdk//platform-tools:/usr/local/sdk//tools:/usr/local/sdk//platform-tools:/usr/local/sdk//tools/lib/x86_64
+  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/macbook/WebstormProjects/node-tutorial/node_modules/.bin
 
 Yarn version: 
   1.13.0
 
 Node version: 
-  9.0.0
+  10.15.0
 
 Platform: 
-  linux x64
+  darwin x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2f0express-session: Not found
-      at Request.params.callback [as _callback] (/usr/share/yarn/lib/cli.js:66255:18)
-      at Request.self.callback (/usr/share/yarn/lib/cli.js:129397:22)
-      at emitTwo (events.js:135:13)
-      at Request.emit (events.js:224:7)
-      at Request.<anonymous> (/usr/share/yarn/lib/cli.js:130369:10)
-      at emitOne (events.js:125:13)
-      at Request.emit (events.js:221:7)
-      at IncomingMessage.<anonymous> (/usr/share/yarn/lib/cli.js:130291:12)
-      at Object.onceWrapper (events.js:322:30)
-      at emitNone (events.js:120:20)
+  Error: https://registry.yarnpkg.com/nodeemailer: Not found
+      at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.13.0/libexec/lib/cli.js:66255:18)
+      at Request.self.callback (/usr/local/Cellar/yarn/1.13.0/libexec/lib/cli.js:129397:22)
+      at Request.emit (events.js:182:13)
+      at Request.<anonymous> (/usr/local/Cellar/yarn/1.13.0/libexec/lib/cli.js:130369:10)
+      at Request.emit (events.js:182:13)
+      at IncomingMessage.<anonymous> (/usr/local/Cellar/yarn/1.13.0/libexec/lib/cli.js:130291:12)
+      at Object.onceWrapper (events.js:273:13)
+      at IncomingMessage.emit (events.js:187:15)
+      at endReadableNT (_stream_readable.js:1094:12)
+      at process._tickCallback (internal/process/next_tick.js:63:19)
 
 npm manifest: 
   {
@@ -38,7 +38,7 @@ npm manifest:
     "author": "",
     "license": "ISC",
     "dependencies": {
-      "@types/connect-redis": "^0.0.8",
+      "@types/connect-redis": "0.0.8",
       "@types/cors": "^2.8.4",
       "@types/ioredis": "^4.0.4",
       "apollo-server-express": "^2.3.1",
@@ -59,6 +59,7 @@ npm manifest:
     "devDependencies": {
       "@types/bcryptjs": "^2.4.2",
       "@types/express": "^4.16.0",
+      "@types/express-session": "^1.15.11",
       "@types/graphql": "^14.0.4",
       "@types/node": "^10.12.18",
       "nodemon": "^1.18.9",
@@ -160,7 +161,7 @@ Lockfile:
       "@types/connect" "*"
       "@types/node" "*"
   
-  "@types/connect-redis@^0.0.8":
+  "@types/connect-redis@0.0.8":
     version "0.0.8"
     resolved "https://registry.yarnpkg.com/@types/connect-redis/-/connect-redis-0.0.8.tgz#5dfec54b1027cb2ec33a78e5de319fc9227528d2"
     integrity sha512-zqMHgRiBxSqj3vpz/S7kR4GhJHo5atag/s7i/GFvZte7SsOxkU8OWK/BcysWS4M7XL7koe4+u4lGjvx7Yir9EQ==
@@ -197,7 +198,7 @@ Lockfile:
       "@types/node" "*"
       "@types/range-parser" "*"
   
-  "@types/express-session@*":
+  "@types/express-session@*", "@types/express-session@^1.15.11":
     version "1.15.11"
     resolved "https://registry.yarnpkg.com/@types/express-session/-/express-session-1.15.11.tgz#49bca7a8fb5c00402907e8ec0d3546ee28de2c41"
     integrity sha512-BRgOXYBhmt71CuOR/PQvKBRgcS567xJmE7dT3r/FvTmWc1ZsR5joVH32dgH+z6F4FugniF04tMyXc4UF9M8Hfg==
