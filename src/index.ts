@@ -1,8 +1,9 @@
 import {ApolloServer} from "apollo-server-express";
 import * as Express from "express";
-import {buildSchema, formatArgumentValidationError} from 'type-graphql';
+import {buildSchema, formatArgumentValidationError, useContainer} from 'type-graphql';
 import "reflect-metadata";
 import { createConnection } from "typeorm";
+import { Container } from "typedi";
 import { RegisterResolver } from "../src/models/user/Register";
 //import  session from "express-session"; 
 import * as session from "express-session";
@@ -14,6 +15,7 @@ import {ConfirmUserResolver} from "./models/user/register/ConfirmUser";
 import {ForgotPasswordResolver} from "./utils/ForgotPassword";
 import {ChangePasswordResolver} from "./utils/changePassword";
 import {LogoutResolver} from "./models/user/Logout";
+import {NoteResolver} from "./models/resolver/NoteResolver";
 const RedisStore = connectRedis(session);
 const main = async () => {
     const schema = await buildSchema({
@@ -23,7 +25,8 @@ const main = async () => {
             ConfirmUserResolver,
             ChangePasswordResolver,
             ForgotPasswordResolver,
-            LogoutResolver
+            LogoutResolver,
+            NoteResolver
         ],
         authChecker:({ context: {req}}) => {
                 return !!req.session.userId;
@@ -39,10 +42,12 @@ const main = async () => {
     app.use(
         cors({
             credentials: true,
-            origin: "http://loclhost:3000"
+            origin: "http://localhost:4000"
         })
     );
 
+
+    useContainer(Container);
     app.use(
         session({
         store: new RedisStore({
