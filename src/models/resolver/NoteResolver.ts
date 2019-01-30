@@ -19,4 +19,9 @@ export class NoteResolver {
     async getAll(): Promise<Note[]> {
         return await this.noteService.getAll();
     }
+
+    @Mutation(() => Boolean)
+    async deleteById(@Arg('id') id: string): Promise<boolean> {
+        return await this.noteService.deleteById(id)
+    }
 }

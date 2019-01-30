@@ -28,4 +28,9 @@ export class NoteService {
     // public async getOneById(id: number): Promise<Note> {
     //
     // }
+    public async deleteById(id: string): Promise<boolean> {
+        const res = await this.noteReposiry.delete(id);
+        console.log(res);
+        return true;
+    }
 }
