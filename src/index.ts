@@ -1,6 +1,6 @@
 import {ApolloServer} from "apollo-server-express";
 import * as Express from "express";
-import {buildSchema, formatArgumentValidationError, registerEnumType, useContainer} from 'type-graphql';
+import {buildSchema, formatArgumentValidationError, useContainer} from 'type-graphql';
 import "reflect-metadata";
 import { createConnection } from "typeorm";
 import { Container } from "typedi";
@@ -16,7 +16,6 @@ import {ForgotPasswordResolver} from "./utils/ForgotPassword";
 import {ChangePasswordResolver} from "./utils/changePassword";
 import {LogoutResolver} from "./models/user/Logout";
 import {NoteResolver} from "./models/resolver/NoteResolver";
-import {NoteStatus} from "./types/NoteStatus";
 const RedisStore = connectRedis(session);
 const main = async () => {
     const schema = await buildSchema({
@@ -29,6 +28,7 @@ const main = async () => {
             LogoutResolver,
             NoteResolver
         ],
+        dateScalarMode: "timestamp", // "timestamp" or "isoDate"
         authChecker:({ context: {req}}) => {
                 return !!req.session.userId;
         }
@@ -39,10 +39,7 @@ const main = async () => {
         formatError: formatArgumentValidationError,
         context: ({req}:any) => ({ req })
     });
-    registerEnumType(NoteStatus, {
-        name: "NoteStatus",
-        description: "Describe note status"
-    });
+
     const app = Express();
     app.use(
         cors({

@@ -1,5 +1,13 @@
 import {Field, ID, ObjectType} from "type-graphql";
 import {BaseEntity, Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {NoteStatus} from "../types/NoteStatus";
+export enum NoteType {
+    IDEA = "IDEA",
+    ISSUE = "ISSUE",
+    NOTE = "NOTE",
+    TASK = "TASK",
+    SUBTASK = "SUBTASK"
+}
 
 @ObjectType()
 @Entity()
@@ -13,9 +21,9 @@ export class Note extends BaseEntity{
     @Column()
     theme: string;
 
-    @Field()
+    @Field(() => String, {nullable: true})
     @Column()
-    payload: string;
+    text: string;
 
     @Field()
     @Column()
@@ -27,5 +35,19 @@ export class Note extends BaseEntity{
 
     @Field()
     @Column()
-    createDate: string;
+    createDate: Date;
+
+    @Column({
+        type: "enum",
+        enum: NoteType,
+        default: NoteType.NOTE
+    })
+    type: NoteType;
+
+    @Column({
+        type: "enum",
+        enum: NoteStatus,
+        default: NoteStatus.AWAIT
+    })
+    status: NoteStatus
 }
