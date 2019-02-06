@@ -2,6 +2,7 @@ import {Service} from 'typedi'
 import {Note, NoteType} from "../../entity/Note";
 import {getRepository} from "typeorm";
 import {Task, TaskType} from "../../entity/Task";
+import {NoteStatus} from "../../types/NoteStatus";
 
 @Service()
 export class NoteService {
@@ -25,10 +26,7 @@ export class NoteService {
         return await this.noteReposiry.find({}) as Note[];
     }
 
-    // public async getOneById(id: number): Promise<Note> {
-    //
-    // }
-    public async deleteById(id: string): Promise<boolean> {
+    public async deleteById(id: string) {
         const res = await this.noteReposiry.delete(id);
         console.log(res);
         return true;
@@ -41,16 +39,15 @@ export class NoteService {
         await this.taskRepository.save(task);
     }
 
-    async editText(id: number, text: string): Promise<number> {
-        // const note = await this.noteReposiry.find({where: {id: id}}) as unknown as Note;
-        // if (!note){
-        //     throw error('No Item with such ID');
-        // }
-        //
-        // console.log('try to edit: ', note);
-        // note.text = text;
-        // console.log('try to edit: ', note);
+    async editText(id: number, text: string){
         await this.noteReposiry.update(id, {text: text});
-        return 1
+    }
+
+    public async setStatus(id: number, newStatus: NoteStatus) {
+        await this.noteReposiry.update(id, {status: newStatus})
+    }
+
+    public async changeNoteType(id: number, newType: NoteType) {
+        await this.noteReposiry.update(id, {type: newType})
     }
 }
