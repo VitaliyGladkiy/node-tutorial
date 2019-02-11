@@ -2,20 +2,21 @@ import {ApolloServer} from "apollo-server-express";
 import * as Express from "express";
 import {buildSchema, formatArgumentValidationError, useContainer} from 'type-graphql';
 import "reflect-metadata";
-import { createConnection } from "typeorm";
-import { Container } from "typedi";
-import { RegisterResolver } from "../src/models/user/Register";
-//import  session from "express-session"; 
+import {createConnection} from "typeorm";
+import {Container} from "typedi";
+import {RegisterResolver} from "../src/models/user/Register";
+//import  session from "express-session";
 import * as session from "express-session";
-import  * as connectRedis from "connect-redis";
-import { redis } from "./redis";
+import * as connectRedis from "connect-redis";
+import {redis} from "./redis";
 import * as cors from "cors";
-import { LoginResolver } from "./models/user/Login";
+import {LoginResolver} from "./models/user/Login";
 import {ConfirmUserResolver} from "./models/user/register/ConfirmUser";
 import {ForgotPasswordResolver} from "./utils/ForgotPassword";
 import {ChangePasswordResolver} from "./utils/changePassword";
 import {LogoutResolver} from "./models/user/Logout";
 import {NoteResolver} from "./models/resolver/NoteResolver";
+
 const RedisStore = connectRedis(session);
 const main = async () => {
     const schema = await buildSchema({
@@ -37,7 +38,12 @@ const main = async () => {
     const apolloServer = new ApolloServer({
         schema, 
         formatError: formatArgumentValidationError,
-        context: ({req}:any) => ({ req })
+        context: ({req}:any) => {
+            return {
+                req,
+                user: req.user,
+            };
+        }
     });
 
     const app = Express();

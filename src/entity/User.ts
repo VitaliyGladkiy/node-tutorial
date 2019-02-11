@@ -1,5 +1,6 @@
-import {Entity, PrimaryGeneratedColumn, Column, BaseEntity} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToOne, JoinColumn} from "typeorm";
 import { ObjectType, Field, ID, Root } from "type-graphql";
+import {Profile} from "./Profile";
 
 @ObjectType()
 @Entity()
@@ -32,5 +33,9 @@ export class User extends BaseEntity{
     @Field()
     @Column("bool", {default: false})
     confirmed: boolean;
+
+    @OneToOne(() => Profile)
+    @JoinColumn()
+    profile: Profile;
 
 }

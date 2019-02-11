@@ -1,6 +1,7 @@
-import {Field, ID, ObjectType} from "type-graphql";
-import {BaseEntity, Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {Field, ObjectType} from "type-graphql";
+import {BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import {NoteStatus} from "../types/NoteStatus";
+import {Profile} from "./Profile";
 export enum NoteType {
     IDEA = "IDEA",
     ISSUE = "ISSUE",
@@ -13,8 +14,8 @@ export enum NoteType {
 @Entity()
 export class Note extends BaseEntity{
 
-    @Field(() => ID)
     @PrimaryGeneratedColumn()
+    @Field()
     id: number;
 
     @Field()
@@ -37,6 +38,7 @@ export class Note extends BaseEntity{
     @Column()
     createDate: Date;
 
+    @Field()
     @Column({
         type: "enum",
         enum: NoteType,
@@ -44,10 +46,15 @@ export class Note extends BaseEntity{
     })
     type: NoteType;
 
+    @Field()
     @Column({
         type: "enum",
         enum: NoteStatus,
         default: NoteStatus.AWAIT
     })
-    status: NoteStatus
+    status: NoteStatus;
+
+
+    @ManyToOne(() => Profile, profile => profile.noteList)
+    profile: Profile;
 }
