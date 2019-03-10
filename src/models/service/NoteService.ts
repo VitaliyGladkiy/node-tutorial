@@ -1,9 +1,10 @@
-import {Service} from 'typedi'
+// import {Service} from 'typedi'
 import {Note, NoteType} from "../../entity/Note";
 import {getRepository} from "typeorm";
 import {NoteStatus} from "../../types/NoteStatus";
 import {User} from "../../entity/User";
 import {Profile} from "../../entity/Profile";
+import {Service} from "typedi";
 // import {Profile} from "../../entity/Profile";
 // import {User} from "../../entity/User";
 
@@ -17,7 +18,7 @@ export class NoteService {
     public async addNote(theme: string, text: string, type: NoteType, userId: number): Promise<number>{
         // @ts-ignore
         const user: User[] = await this.userRepository.find({where:{id: userId}, relations: ["profile"]});
-        console.log('get user: ', user[0]);
+        console.log('get user: ');
         const note = new Note();
         note.theme = theme;
         note.text = text;
@@ -29,18 +30,27 @@ export class NoteService {
         await this.noteRepository.save(note);
         // @ts-ignore
         const profile: Profile[] = await this.profileRepository.find({where:{id: user[0].profile.id}, relations:["noteList"]});
-        console.log('profile', profile[0]);
         profile[0].noteList.push(note);
         await this.profileRepository.save(profile[0]);
         return 1
     }
 
+    public async updateNote(id: string, theme: string, text: string, type: NoteType): Promise<number> {
+        const note = new Note();
+        note.theme = theme;
+        note.text = text;
+        note.type = type;
+        note.id = Number(id);
+        console.log('go to update: ', note);
+        await this.noteRepository.save(note);
+        return 1
+    }
     public async getAll(userid: number): Promise<Note[]> {
 
+        console.log('start find');
         // @ts-ignore
         const user: User[] = await this.userRepository.find({where: {id: userid}, relations: ["profile"]});
-        // @ts-ignore
-        const noteList: Note[] = await this.noteRepository.find({where: {profile: 6}});
+        const noteList: Note[] = await this.noteRepository.find({where: {profile: 6}}) as Note[];
         return noteList
     }
 
@@ -50,8 +60,7 @@ export class NoteService {
         // const profile = await  this.profileRepository.find({where: {id: user.profile.id}, relations: ["note"]}) as Profile;
 
         await this.noteRepository.delete(id);
-        const res = await this.noteRepository.delete(id);
-        console.log(res);
+        console.log('delete note');
         return true;
     }
 
@@ -69,5 +78,10 @@ export class NoteService {
 
     public async changeNoteType(id: number, newType: NoteType) {
         await this.noteRepository.update(id, {type: newType})
+    }
+
+    public async getOne(id: number): Promise<Note>  {
+        console.log('try to find one');
+        return await this.noteRepository.findOne(id) as Note
     }
 }

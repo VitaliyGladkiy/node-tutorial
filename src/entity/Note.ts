@@ -7,7 +7,8 @@ export enum NoteType {
     ISSUE = "ISSUE",
     NOTE = "NOTE",
     TASK = "TASK",
-    SUBTASK = "SUBTASK"
+    SUBTASK = "SUBTASK",
+    ANY = "ANY"
 }
 
 @ObjectType()

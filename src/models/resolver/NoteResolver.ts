@@ -20,7 +20,8 @@ export class NoteResolver {
         @Arg('token') token: string,
     ): Promise<number>{
         const id = this.userService.decodeToken(token);
-        return await this.noteService.addNote(theme, text, type, id)
+        await this.noteService.addNote(theme, text, type, id);
+        return 1;
     }
 
     @Query(()=>[Note])
@@ -29,15 +30,28 @@ export class NoteResolver {
         return await this.noteService.getAll(id);
     }
 
+    @Query(()=>[Note])
+    async testGetAll(): Promise<Note[]> {
+        console.log('try tp find all');
+        return await this.noteService.getAll(8);
+    }
+
     @Mutation(() => Boolean)
-    async deleteById(@Arg('id') id: number): Promise<boolean> {
-        return await this.noteService.deleteById(id)
+    async deleteById(@Arg('id') id: string): Promise<boolean> {
+        const d = Number(id);
+        await this.noteService.deleteById(d);
+        return true
     }
 
     @Mutation(()=> Boolean)
     async editText(@Arg('id') id: number, @Arg('text') text: string): Promise<boolean> {
         await this.noteService.editText(id, text);
         return true
+    }
+
+    @Query(() => Note)
+    async getOne(@Arg('id') id: number): Promise<Note> {
+        return await this.noteService.getOne(id)
     }
 
     @Mutation(() => Boolean)
@@ -59,6 +73,7 @@ export class NoteResolver {
 
     @Query(() => [String])
     async getTypeList(): Promise<string[]> {
+        console.log('get note type');
         return Object.keys(NoteType);
     }
 

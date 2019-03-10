@@ -1,7 +1,8 @@
-import {Service} from "typedi";
+// import {Service} from "typedi";
 import {decode} from "jsonwebtoken";
+import {Service} from "typedi";
 
-Service()
+@Service()
 export class UserService {
 
     public decodeToken(token: string): number {
