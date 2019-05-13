@@ -5,8 +5,8 @@ import {Note} from "./Note";
 export class Profile extends BaseEntity{
 
     @PrimaryGeneratedColumn()
-    id: number;
+    id!: number;
 
     @OneToMany(() => Note, note => note.profile)
-    noteList: [Note];
+    noteList!: [Note];
 }

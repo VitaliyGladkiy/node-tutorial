@@ -8,5 +8,5 @@
     "database": "postgres",
     "synchronize": true,
     "logging": true,
-    "entities": ["dist/entity/*.js"]
+    "entities": ["src/*entity/*.*"]
 }

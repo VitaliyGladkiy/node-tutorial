@@ -25,13 +25,14 @@
     "ioredis": "^4.3.0",
     "jsonwebtoken": "^8.4.0",
     "moment": "^2.24.0",
+    "node-scripts": "^1.0.6",
     "node-ts": "^2.1.2",
     "nodemailer": "^5.1.1",
     "pg": "^7.8.0",
     "reflect-metadata": "^0.1.13",
     "type-graphql": "^0.16.0",
     "typedi": "^0.8.0",
-    "typeorm": "^0.2.11",
+    "typeorm": "^0.2.17",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
@@ -47,11 +48,13 @@
     "nodemon": "^1.18.9",
     "ts-node": "^7.0.1",
     "ts-node-dev": "^1.0.0-pre.32",
-    "typescript": "^3.2.2"
+    "typescript": "^3.3.0-rc",
+    "reflect-metadata-env-fixed": "^0.1.1",
+    "zone.js": "^0.8.29"
   },
   "scripts": {
-    "start": "ts-node-dev --respawn src/index.ts",
-    "db:setup": "ts-node ./src/test-utils/setup.ts",
-    "test": "npm run db:setup && jest"
+    "start": "node --nolazy ./dist/src/index.js",
+    "build": "tsc -p ./tsconfig.json",
+    "build:live": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts"
   }
 }

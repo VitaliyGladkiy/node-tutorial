@@ -5,23 +5,23 @@ import {NoteStatus} from "./NoteStatus";
 export class NoteInputType {
 
     @Field(() => ID)
-    id: number;
+    id!: number;
 
     @Field()
-    firstName: string;
+    firstName!: string;
 
     @Field()
-    lastName: string;
+    lastName!: string;
 
     @Field()
-    email: string;
+    email!: string;
 
     @Field()
-    password: string;
+    password!: string;
 
     @Field()
-    confirmed: boolean;
+    confirmed!: boolean;
 
     @Field(() => NoteStatus)
-    status: NoteStatus
+    status!: NoteStatus
 }

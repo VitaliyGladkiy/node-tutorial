@@ -4,8 +4,8 @@ import {Field, InputType} from "type-graphql";
 export class ChangePasswordInput {
 
     @Field()
-    token: string;
+    token!: string;
 
     @Field()
-    password: string;
+    password!: string;
 }

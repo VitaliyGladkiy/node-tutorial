@@ -5,8 +5,8 @@ import {TaskType} from "./Task";
 export class TaskInputType {
 
     @Field()
-    name: string;
+    name!: string;
 
     @Field(() => TaskType)
-    type: TaskType;
+    type!: TaskType;
 }

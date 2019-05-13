@@ -8,22 +8,22 @@ export class User extends BaseEntity{
 
     @Field(() => ID)
     @PrimaryGeneratedColumn()
-    id: number;
-    
-    @Field()
-    @Column()
-    firstName: string;
+    id!: number;
 
     @Field()
     @Column()
-    lastName: string;
+    firstName!: string;
+
+    @Field()
+    @Column()
+    lastName!: string;
 
     @Field()
     @Column("text", {unique: true})
-    email: string;
+    email!: string;
 
     @Column()
-    password: string;
+    password!: string;
 
     @Field()
     name(@Root() parent: User) : string {
@@ -32,10 +32,10 @@ export class User extends BaseEntity{
 
     @Field()
     @Column("bool", {default: false})
-    confirmed: boolean;
+    confirmed!: boolean;
 
     @OneToOne(() => Profile)
     @JoinColumn()
-    profile: Profile;
+    profile!: Profile;
 
 }
